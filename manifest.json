@@ -1,0 +1,14 @@
+{
+    "name": "Lync",
+    "version": "1.0.0",
+    "description": "Sync links across browers",
+    "manifest_version": 3,
+    "author": "Rahul V",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Lync"
+    },
+    "permissions":[
+        "tabs"
+    ]
+}
