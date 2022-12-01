@@ -3,7 +3,8 @@ chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
     document.querySelector("h6").textContent = url;
 
     const params = new URLSearchParams();
-    params.append("browserID","as3ww241qa3");
+    params.append("sourceBrowserID","ssx99");
+    params.append("sinkBrowserID","dsf423")
     params.append("link",url);
 
     try{
