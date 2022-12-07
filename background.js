@@ -2,10 +2,11 @@ let connection;
 
 connection = new WebSocket("ws://localhost:8080");
 
+
 connection.onopen = (event) => {
-    connection.send("hoge");
+    console.log("Connected to server.");
 }
 
 connection.onmessage = (event) => {
-    console.log("Server sent - " + event.data);
+    console.log(event.data);
 }

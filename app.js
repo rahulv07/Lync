@@ -1,5 +1,5 @@
-// var sourceID = "ssx99";
-// var sinkID = "dsf423";
+var sourceID = "lajdf";
+var sinkID = "dsf423";
 
 // //If sinkBrowser is already paired to sourceBrowser
 // chrome.storage.local.set({sinkID:"ALREADY_PAIRED"},()=>{});
@@ -8,32 +8,26 @@
 //   console.log(items[sinkID]);  //Prints already paired or not
 // });
 
+//Implement the above concept to remove DB model compilation error
 
+chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
+    let url = tabs[0].url;
+    document.querySelector("h6").textContent = url;
 
-// chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
-//     let url = tabs[0].url;
-//     document.querySelector("h6").textContent = url;
+    const data = {
+      "sourceID" : sourceID,
+      "sinkID" : sinkID,
+      "url" : url
+    };
 
-//     const params = new URLSearchParams();
-//     params.append("sourceBrowserID","ssx99");
-//     params.append("sinkBrowserID","dsf423")
-//     params.append("link",url);
+    let conn = new WebSocket("ws://localhost:8080");
 
-//     chrome.storage.local.get(sinkID,(items)=>{
-//       if(items[])
-//     });
-    
-//     try{
-//       await fetch('http://localhost:3000/api/post',{
-//         mode:'no-cors',
-//         method:'POST',
-//         body:params
-//       }).then(res => {
-//         document.querySelector("h5").textContent = "Sent!";
-//       });
-//     }
-//  ch(error){
-//       console.log(error);
-//     }
-// }); 
+    conn.onopen = (event) => {
+      conn.send(JSON.stringify(data));
+      conn.close(3000,"Link sent from extension!");
+      document.querySelector("h5").textContent = "Sent";
+    }
+   
+   
+}); 
 
