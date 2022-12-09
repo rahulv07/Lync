@@ -15,6 +15,7 @@ chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
     document.querySelector("h6").textContent = url;
 
     const data = {
+      "initial" : false,
       "sourceID" : sourceID,
       "sinkID" : sinkID,
       "url" : url
