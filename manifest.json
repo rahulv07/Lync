@@ -2,14 +2,15 @@
     "name": "Lync",
     "version": "1.0.0",
     "description": "Sync links across browers",
-    "manifest_version": 3,
+    "manifest_version": 2,
     "author": "Rahul V",
-    "action":{
+    "browser_action":{
         "default_popup": "index.html",
         "default_title": "Lync"
     },
     "background":{
-        "service_worker":"background.js"
+        "scripts":["background.js"],
+        "persistent" : true
     },
     "permissions":[
         "tabs",
