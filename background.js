@@ -20,7 +20,8 @@ connection.onopen = (event) => {
 }
 
 connection.onmessage = (event) => {
-    console.log(event.data);
+    const data = JSON.parse(event.data);
+    chrome.tabs.create({url:data["link"]});
 }
 
 chrome.runtime.onMessage.addListener(function(tabData,sender,res){
