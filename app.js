@@ -1,5 +1,9 @@
-var sourceID = "sdfa";
-var sinkID = "paper";
+let sourceID;
+chrome.identity.getProfileUserInfo(function(browserUser){
+  sourceID = browserUser.id;
+});
+
+var sinkID = "100277740006456062513";
 
 // //If sinkBrowser is already paired to sourceBrowser
 // chrome.storage.local.set({sinkID:"ALREADY_PAIRED"},()=>{});
@@ -7,8 +11,6 @@ var sinkID = "paper";
 // chrome.storage.local.get(sinkID,(items)=>{
 //   console.log(items[sinkID]);  //Prints already paired or not
 // });
-
-//Implement the above concept to remove DB model compilation error
 
 chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
     let url = tabs[0].url;

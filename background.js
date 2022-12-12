@@ -1,5 +1,9 @@
 let connection;
-var sourceID = "sdfa";
+let sourceID;
+
+chrome.identity.getProfileUserInfo(function(browserUser){
+    sourceID = browserUser.id;
+});
 
 connection = new WebSocket("ws://localhost:8080");
 
