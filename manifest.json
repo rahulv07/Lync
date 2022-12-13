@@ -8,6 +8,10 @@
         "default_popup": "index.html", 
         "default_title": "Lync"
     },
+    "background":{
+        "scripts":["background.js"],
+        "persistent" : true
+    },
     "permissions":[
         "tabs",
         "storage",
