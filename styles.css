@@ -1,0 +1,14 @@
+h3{
+    text-align: center;
+    color: red;
+    font-weight:bold;
+}
+
+.paired{
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+body {
+    min-width:170px;
+}

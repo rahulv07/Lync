@@ -31,6 +31,4 @@ chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
         document.querySelector("h5").textContent = "Error Sending";
       }
     });   
-   
 }); 
-
