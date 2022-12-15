@@ -5,7 +5,7 @@
     "manifest_version": 2,
     "author": "Rahul V",
     "browser_action":{
-        "default_popup": "index.html",
+        "default_popup": "index.html", 
         "default_title": "Lync"
     },
     "background":{

@@ -1,0 +1,28 @@
+body {
+    min-width:170px;
+}
+
+h3.title{
+    text-align: center;
+    color: red;
+    font-weight:bold;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+div.paired > p{
+    padding-left: 8%;
+    padding-right: 8%;
+    color: grey;
+    font-size: 17px;
+}
+
+div.sinks{
+    padding-left: 8%;
+    padding-right: 8%;
+    font-size: 13px;
+}
+
+i{
+    color: black;
+}
