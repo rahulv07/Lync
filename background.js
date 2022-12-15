@@ -25,7 +25,33 @@ connection.onopen = (event) => {
 
 connection.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    chrome.tabs.create({url:data["link"]});
+    const senderID = data["sourceID"];
+
+    chrome.storage.local.get({lyncSavedSources:[]},(result) => {
+        var lyncSavedSources = result.lyncSavedSources;
+        var alreadySaved = false;
+
+        for(let i in lyncSavedSources){
+            if(lyncSavedSources[i].sourceID == senderID){
+                alreadySaved = true;
+                break;
+            }
+        }
+
+        if(alreadySaved){
+            chrome.tabs.create({url:data["link"]});
+        }
+        else{
+            const canPair = confirm("Receive links from browser " + senderID + "?");
+            if(canPair){
+                const nickName = prompt("Enter nickname for browser " + senderID);
+                lyncSavedSources.push({sourceID:senderID,nickName:nickName});
+                chrome.storage.local.set({lyncSavedSources:lyncSavedSources}, () => {
+                    chrome.tabs.create({url:data["link"]});
+                });         
+            }
+        }
+    });   
 }
 
 chrome.runtime.onMessage.addListener(function(tabData,sender,res){

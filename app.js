@@ -1,10 +1,3 @@
-// // //If sinkBrowser is already paired to sourceBrowser
-// // chrome.storage.local.set({sinkID:"ALREADY_PAIRED"},()=>{});
-
-// // chrome.storage.local.get(sinkID,(items)=>{
-// //   console.log(items[sinkID]);  //Prints already paired or not
-// // });
-
 function sendLink(sourceID,sinkID) {
   chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
     let url = tabs[0].url;
