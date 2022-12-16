@@ -1,3 +1,33 @@
+let sourceID;
+
+chrome.identity.getProfileUserInfo(function(browserUser){
+  sourceID = browserUser.id;
+});
+
+function loadSinkNames(){
+  var currentDiv = document.getElementsByClassName("paired")[0];
+
+  chrome.storage.local.get((result) => {
+    const lyncSavedSources = result.lyncSavedSources;
+
+    for(var i in lyncSavedSources){
+      const sinkDiv = document.createElement("div");
+      sinkDiv.setAttribute("class","sinks");
+    
+      const sinkName = document.createElement("p").appendChild(document.createTextNode(lyncSavedSources[i].nickName));
+      sinkDiv.appendChild(sinkName);
+
+      sinkDiv.addEventListener("click",(event) => {
+        sendLink(sourceID,lyncSavedSources[i].sourceID);
+      });
+
+      currentDiv.after(sinkDiv);
+      currentDiv = sinkDiv; 
+    }  
+  });
+  
+}
+
 function sendLink(sourceID,sinkID) {
   chrome.tabs.query({active: true, lastFocusedWindow: true}, async (tabs) => {
     let url = tabs[0].url;
@@ -20,15 +50,4 @@ function sendLink(sourceID,sinkID) {
   }); 
 }
 
-let sourceID;
-const sinkID = "100277740006456062513";
-chrome.identity.getProfileUserInfo(function(browserUser){
-  sourceID = browserUser.id;
-});
-
-const sinkBrowsers = document.getElementsByClassName("sinks");
-for(var i=0;i<sinkBrowsers.length;i++){
-  sinkBrowsers[i].addEventListener("click",function(event){
-    sendLink(sourceID,sinkID);
-  });
-}
+document.body.onload = loadSinkNames;
