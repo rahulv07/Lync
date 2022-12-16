@@ -2,6 +2,7 @@ let sourceID;
 
 chrome.identity.getProfileUserInfo(function(browserUser){
   sourceID = browserUser.id;
+  document.getElementsByClassName("browserID")[0].textContent = "ID: " + sourceID;
 });
 
 function loadSinkNames(){
