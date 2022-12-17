@@ -17,16 +17,19 @@ p.browserID{
     margin-bottom: 4%;
 }
 
-div.paired > p{
+div.paired{
     padding-left: 8%;
     padding-right: 8%;
-    margin: 0%;
+    margin-bottom: 3%;
     color: grey;
     font-size: 17px;
 }
 
 div.sinks{
-    padding: 8%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 8%;
+    padding-right: 8%;
     font-size: 13px;
 }
 
@@ -36,4 +39,8 @@ div.sinks:hover{
 
 i{
     color: black;
+}
+
+div.bottomSpace{
+    padding: 3%;
 }
