@@ -41,6 +41,10 @@ i{
     color: black;
 }
 
+span.sinkName{
+    width: 90%;
+}
+
 div.bottomSpace{
     padding: 3%;
 }

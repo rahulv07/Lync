@@ -21,6 +21,21 @@ document.getElementsByTagName("i")[0].addEventListener("click",(event)=>{
   }
 });
 
+function removeBrowser(browserID){
+  chrome.storage.local.get({lyncSavedSources:[]},(result) => {
+    var lyncSavedSources = result.lyncSavedSources;
+    for(var b in lyncSavedSources){
+      if(lyncSavedSources[b].sourceID == browserID){
+        lyncSavedSources.splice(b,1);
+        break;
+      }
+    }
+    chrome.storage.local.set({lyncSavedSources:lyncSavedSources},()=>{
+      window.close();
+    })
+  });
+}
+
 function loadSinkNames(){
   var currentDiv = document.getElementsByClassName("paired")[0];
 
@@ -42,8 +57,12 @@ function loadSinkNames(){
       trashIconSpan.appendChild(trashIcon);
       sinkDiv.appendChild(trashIconSpan);
 
-      sinkDiv.addEventListener("click",(event) => {
+      sinkNameSpan.addEventListener("click",(event) => {
         sendLink(sourceID,lyncSavedSources[i].sourceID);
+      });
+
+      trashIcon.addEventListener("click",(event) => {
+        removeBrowser(lyncSavedSources[i].sourceID);
       });
 
       currentDiv.after(sinkDiv);
