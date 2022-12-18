@@ -5,7 +5,7 @@ chrome.identity.getProfileUserInfo(function(browserUser){
     sourceID = browserUser.id;
 });
 
-connection = new WebSocket("ws://localhost:8080");
+connection = new WebSocket("wss://lync-api.glitch.me");
 
 connection.onopen = (event) => {
     console.log("Connected to server.");

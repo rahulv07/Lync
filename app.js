@@ -5,6 +5,37 @@ chrome.identity.getProfileUserInfo(function(browserUser){
   document.getElementsByClassName("browserID")[0].textContent = "ID: " + sourceID;
 });
 
+document.getElementsByTagName("i")[0].addEventListener("click",(event)=>{
+  const sinkBrowserID = prompt("Enter the browser ID");
+  if(sinkBrowserID != null){
+    const nickName = prompt("Enter nickname for browser " + sinkBrowserID);
+    if(nickName != null){
+      chrome.storage.local.get({lyncSavedSources:[]},(result) => {
+        var lyncSavedSources = result.lyncSavedSources;
+        lyncSavedSources.push({sourceID:sinkBrowserID,nickName:nickName});
+        chrome.storage.local.set({lyncSavedSources:lyncSavedSources},()=>{
+          window.close();
+        });
+      });
+    }
+  }
+});
+
+function removeBrowser(browserID){
+  chrome.storage.local.get({lyncSavedSources:[]},(result) => {
+    var lyncSavedSources = result.lyncSavedSources;
+    for(var b in lyncSavedSources){
+      if(lyncSavedSources[b].sourceID == browserID){
+        lyncSavedSources.splice(b,1);
+        break;
+      }
+    }
+    chrome.storage.local.set({lyncSavedSources:lyncSavedSources},()=>{
+      window.close();
+    })
+  });
+}
+
 function loadSinkNames(){
   var currentDiv = document.getElementsByClassName("paired")[0];
 
@@ -15,11 +46,23 @@ function loadSinkNames(){
       const sinkDiv = document.createElement("div");
       sinkDiv.setAttribute("class","sinks");
     
-      const sinkName = document.createElement("p").appendChild(document.createTextNode(lyncSavedSources[i].nickName));
-      sinkDiv.appendChild(sinkName);
+      const sinkNameSpan = document.createElement("span");
+      sinkNameSpan.setAttribute("class","sinkName");      
+      sinkNameSpan.appendChild(document.createElement("p").appendChild(document.createTextNode(lyncSavedSources[i].nickName)));
+      sinkDiv.appendChild(sinkNameSpan);
 
-      sinkDiv.addEventListener("click",(event) => {
+      const trashIconSpan = document.createElement("span");
+      const trashIcon = document.createElement("i");
+      trashIcon.setAttribute("class","trashIcon fa-solid fa-trash");
+      trashIconSpan.appendChild(trashIcon);
+      sinkDiv.appendChild(trashIconSpan);
+
+      sinkNameSpan.addEventListener("click",(event) => {
         sendLink(sourceID,lyncSavedSources[i].sourceID);
+      });
+
+      trashIcon.addEventListener("click",(event) => {
+        removeBrowser(lyncSavedSources[i].sourceID);
       });
 
       currentDiv.after(sinkDiv);
@@ -42,7 +85,7 @@ function sendLink(sourceID,sinkID) {
 
     chrome.runtime.sendMessage(data,(res)=>{
       if(res.status == "SUCCESS"){
-        alert("Link Sent!");
+        window.close();
       }
       else{
         alert("Error sending the link!");
