@@ -25,4 +25,6 @@ To try the Lync chrome extension, follow these steps:
 
 Now the extension is loaded and you can use it.
 
+**Note:** The extension should be installed in both the browsers to send and receive links
+
 
